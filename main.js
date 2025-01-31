@@ -1,10 +1,7 @@
-// main.js
-
 // DOM Elements
 const navLinks = document.querySelectorAll('.nav li a');
 const sections = document.querySelectorAll('.section');
 const homeSection = document.querySelector('.home');
-
 
 // Home Section Typing Animation for Occupation
 const typingElement = document.querySelector('.typing');
@@ -29,3 +26,43 @@ function typeOccupation() {
 
 // Start Typing Animation on Page Load
 window.addEventListener('load', typeOccupation);
+
+document.addEventListener("DOMContentLoaded", function () {
+    const navLinks = document.querySelectorAll(".nav a");
+
+    navLinks.forEach(link => {
+        link.addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent default anchor behavior
+
+            // Remove 'active' class from all links
+            navLinks.forEach(nav => nav.classList.remove("active"));
+
+            // Add 'active' class to the clicked link
+            this.classList.add("active");
+
+            // Hide all sections
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show the clicked section
+            const targetSection = document.querySelector(this.getAttribute('href'));
+            targetSection.classList.remove('hidden');
+            setTimeout(() => targetSection.classList.add('active'), 10); // Trigger transition
+
+            // Hide sections after transition
+            setTimeout(() => {
+                sections.forEach(section => {
+                    if (!section.classList.contains('active')) {
+                        section.classList.add('hidden');
+                    }
+                });
+            }, 500); // Wait for transition to complete
+        });
+    });
+
+    // Initially hide all sections except home
+    sections.forEach(section => section.classList.add('hidden'));
+    homeSection.classList.remove('hidden');
+    homeSection.classList.add('active');
+});
