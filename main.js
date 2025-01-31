@@ -1,11 +1,11 @@
 // DOM Elements
-const navLinks = document.querySelectorAll('.nav li a');
-const sections = document.querySelectorAll('.section');
-const homeSection = document.querySelector('.home');
+const navLinks = document.querySelectorAll(".nav a, .btn.contacts"); // Includes the "Reach out!" button
+const sections = document.querySelectorAll(".section");
+const homeSection = document.querySelector(".home");
 
 // Home Section Typing Animation for Occupation
-const typingElement = document.querySelector('.typing');
-const occupations = ['Computer Scientist', 'Student', 'Gamer'];
+const typingElement = document.querySelector(".typing");
+const occupations = ["Computer Scientist", "Student", "Gamer"];
 let currentOccupationIndex = 0;
 let currentCharIndex = 0;
 
@@ -16,7 +16,7 @@ function typeOccupation() {
         setTimeout(typeOccupation, 100); // Adjust typing speed
     } else {
         setTimeout(() => {
-            typingElement.textContent = '';
+            typingElement.textContent = "";
             currentCharIndex = 0;
             currentOccupationIndex = (currentOccupationIndex + 1) % occupations.length;
             typeOccupation();
@@ -25,44 +25,38 @@ function typeOccupation() {
 }
 
 // Start Typing Animation on Page Load
-window.addEventListener('load', typeOccupation);
+window.addEventListener("load", typeOccupation);
 
 document.addEventListener("DOMContentLoaded", function () {
-    const navLinks = document.querySelectorAll(".nav a");
-
     navLinks.forEach(link => {
         link.addEventListener("click", function (event) {
-            event.preventDefault(); // Prevent default anchor behavior
+            const targetSection = document.querySelector(this.getAttribute("href"));
 
-            // Remove 'active' class from all links
-            navLinks.forEach(nav => nav.classList.remove("active"));
+            if (targetSection) {
+                event.preventDefault(); // Prevent default anchor behavior
 
-            // Add 'active' class to the clicked link
-            this.classList.add("active");
+                // Remove 'active' class from all links
+                navLinks.forEach(nav => nav.classList.remove("active"));
+                this.classList.add("active");
 
-            // Hide all sections
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
-
-            // Show the clicked section
-            const targetSection = document.querySelector(this.getAttribute('href'));
-            targetSection.classList.remove('hidden');
-            setTimeout(() => targetSection.classList.add('active'), 10); // Trigger transition
-
-            // Hide sections after transition
-            setTimeout(() => {
+                // Hide all sections
                 sections.forEach(section => {
-                    if (!section.classList.contains('active')) {
-                        section.classList.add('hidden');
-                    }
+                    section.classList.remove("active");
+                    section.classList.add("hidden");
                 });
-            }, 500); // Wait for transition to complete
+
+                // Show the clicked section
+                targetSection.classList.remove("hidden");
+                setTimeout(() => targetSection.classList.add("active"), 10);
+
+                // Smooth scroll to section
+                targetSection.scrollIntoView({ behavior: "smooth" });
+            }
         });
     });
 
     // Initially hide all sections except home
-    sections.forEach(section => section.classList.add('hidden'));
-    homeSection.classList.remove('hidden');
-    homeSection.classList.add('active');
+    sections.forEach(section => section.classList.add("hidden"));
+    homeSection.classList.remove("hidden");
+    homeSection.classList.add("active");
 });
