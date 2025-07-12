@@ -406,6 +406,37 @@ h3.my-occupation
     border-radius: 10px;
 }
 
+.coursera-group {
+    display: flex;
+    gap: 32px;
+    margin-top: 0;
+    margin-bottom: 32px;
+    padding: 24px 0;
+    border-radius: 12px;
+    background: rgb(216, 179, 179);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ungrouped-group {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 32px;
+    padding: 24px 0;
+    border-radius: 12px;
+    background:  rgb(221, 187, 187);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ungrouped-group .certification,
+.coursera-group .certification {
+    margin: 0;
+}
 
 /*Contacts*/
 
